@@ -20,3 +20,18 @@ pip install -r requirements.txt
 
 ## How to launch
 To run the script, you can “copy paste” it entirely into the shell, or you can put the code file next to manage.py and connect via import. The second way is more convenient and reliable.
+- The first method:
+    Write in the console:
+    ```
+     python manage.py shell
+     (import the necessary libraries, models, and constants)
+    (Define the functions you have (inside the shell):)
+    (call the corresponding function:
+    fix_marks(schoolkid)
+    )
+    ```
+- The second way:
+    Copy the repository and create a folder in it `scripts.py `from this prototype, then run the script:
+    ```
+    python scripts.py 
+    ```
