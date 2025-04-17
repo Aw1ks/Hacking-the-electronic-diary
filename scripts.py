@@ -46,12 +46,18 @@ def create_commendation(schoolkid, lesson, LIST_MESSAGES):
     except Subject.DoesNotExist:
         logger.error(f"Предмета '{lesson}' нет для {schoolkid.year_of_study} года.")
         sys.exit(0)
+    except Subject.MultipleObjectsReturned:
+        logger.error(f"Найдено несколько предметов с именем '{lesson}' для {schoolkid.year_of_study} года.")
+        sys.exit(0)
 
-    lesson_subject = Lesson.objects.get(
-        year_of_study=schoolkid.year_of_study, 
+    lesson_subject = Lesson.objects.filter(year_of_study=schoolkid.year_of_study, 
         group_letter=schoolkid.group_letter, 
         subject=subject
-    )
+    ).last()
+
+    if not lesson_subject:
+        logger.warning(f"Предмет '{lesson}' не найден для ученика {schoolkid.full_name}.")
+        sys.exit(0)
 
     text = random.choice(LIST_MESSAGES)
 
